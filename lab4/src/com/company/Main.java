@@ -27,9 +27,9 @@ public class Main {
 
     public static void menu() {
         Scanner in = new Scanner(System.in);
-        int escolhaMenu=-1;
+        int escolhaMenu = -1;
 
-        while (escolhaMenu!=0) {
+        while (escolhaMenu != 0) {
             System.out.println(":::::::::::::::Menu::::::::::::::::");
             System.out.println(":::1- Vacinar o primeiro da fila:::");
             System.out.println(":::2- Mostrar vacinados         :::");
@@ -40,6 +40,9 @@ public class Main {
 
             switch (escolhaMenu) {
                 case 1:
+                    if (validarListaVazia(pacientesNãoVacinados))
+                        break;
+
                     pacientesNãoVacinados.get(0).Vacinar();
                     pacientesVacinados.add(pacientesNãoVacinados.get(0));
                     pacientesNãoVacinados.remove(0);
@@ -49,7 +52,7 @@ public class Main {
                     mostrarLista(pacientesVacinados);
                     break;
                 case 3:
-                    System.out.println("::::::::::Paciêntes não vacinados::::::::::");
+                    System.out.println("::::::::::Fila de vacinação::::::::::::::::");
                     mostrarLista(pacientesNãoVacinados);
                     break;
                 case 0:
@@ -60,11 +63,23 @@ public class Main {
         }
     }
 
+
+    public static boolean validarListaVazia(ArrayList<Paciente> lista) {
+        if (lista.size() == 0) {
+            System.out.println("Não há paciêntes.\n");
+            return true;
+        }
+        return false;
+    }
+
     public static void mostrarLista(ArrayList<Paciente> lista) {
+        if (validarListaVazia(lista))
+            return;
+
         for (int i = 0; i < lista.size(); i++) {
             System.out.println(
-                    "id: " + i + "\n" +
-                    lista.get(i).toString()
+                    "index: " + i + "\n" +
+                    lista.get(i).toString()+"\n"
             );
         }
     }
